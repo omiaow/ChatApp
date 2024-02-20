@@ -1,0 +1,60 @@
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import http from 'http';
+import { Server } from 'socket.io';
+
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
+
+const waitingUsers = new Set();
+
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(cors());
+app.use(io)
+
+// to check if backend is not crashed
+app.get("/", (req, res) => {
+  res.send(`Server launched perfectly on ${req.protocol}://${req.get('host')}${req.originalUrl}`);
+});
+
+/* ----------------------------------- */
+
+io.on('connection', (socket) => {
+    console.log('A user connected');
+  
+    socket.on('waiting', () => {
+      waitingUsers.add(socket);
+      console.log('User is waiting');
+    });
+  
+    socket.on('not waiting', () => {
+      waitingUsers.delete(socket);
+      console.log('User is no longer waiting');
+    });
+  
+    socket.on('message', (message) => {
+      console.log('Message received:', message);
+  
+      const randomUser = Array.from(waitingUsers)[Math.floor(Math.random() * waitingUsers.size)];
+      
+      if (randomUser) {
+        randomUser.emit('message', message);
+        console.log('Message sent to random user:', message);
+      } else {
+        console.log('No users available to chat');
+      }
+    });
+  
+    socket.on('disconnect', () => {
+      console.log('User disconnected');
+      waitingUsers.delete(socket);
+    });
+});
+
+/* ----------------------------------- */
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))

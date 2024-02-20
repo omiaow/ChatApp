@@ -1,0 +1,131 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.App {
+  float: left;
+  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 0;
+  background-color: #E5E7E9;
+  color: #3b5360;
+}
+
+.App h1 {
+  margin: 0;
+  font-size: 50px;
+}
+
+.App .chat {
+  width: 70%;
+  height: 70vh;
+  margin: 0 15%;
+  overflow: auto;
+  flex-direction: column-reverse;
+}
+
+.App .chat .sent,
+.App .chat .received {
+  float: right;
+  background-color: white;
+  max-width: 70%;
+  padding: 10px;
+  font-size: 20px;
+  margin: 5px;
+  border-radius: 15px;
+  clear: both;
+  text-align: left;
+}
+
+.App .chat .received {
+  float: left;
+}
+
+.App .input {
+  width: 70%;
+  margin: 0 15%;
+  overflow: auto;
+}
+
+.App input[type=text] {
+  float: left;
+  padding: 30px;
+  margin: 10px 0;
+  width: calc(78% - 60px);
+  height: 15px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  border: 0;
+  font-size: 20px;
+  text-align: left;
+  outline: none;
+}
+
+.App button {
+  float: right;
+  width: 20%;
+	height: 75px;
+  background-color: #3b5360;
+  color: white;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  font-size: 20px;
+  font-weight: 500;
+  outline: none;
+  margin: 10px 0;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3b5360;
+  width: 120px;
+  height: 120px;
+  margin: 10px calc(50% - 76px);
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
